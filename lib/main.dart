@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro/screen_hander.dart';
 
 void main() {
-  // runApp(const PomodoroApp());
-  runApp(const MaterialApp(home: Scaffold(body: Center(child: Text("TODO")))));
+  return runApp(
+    MaterialApp(debugShowCheckedModeBanner: false, home: ScreenHandler()),
+  );
 }
