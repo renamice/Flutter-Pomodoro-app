@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro/interface/data_handler.dart';
+import 'package:pomodoro/models/user.dart';
 import 'package:pomodoro/widgets/coutdown.dart';
+import 'package:pomodoro/widgets/buttons.dart';
 
 class RestScreen extends StatefulWidget {
   const RestScreen({super.key, required this.toWork});
@@ -11,6 +14,17 @@ class RestScreen extends StatefulWidget {
 }
 
 class _RestScreenState extends State<RestScreen> {
+  late Map settings;
+
+  @override
+  void initState() {
+    super.initState();
+    settings = getUserSettings();
+  }
+
+  late var background = settings[Settings.rest_background.toString()];
+  late var foreground = settings[Settings.rest_foreground.toString()];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,10 +49,10 @@ class _RestScreenState extends State<RestScreen> {
                 child: Text("Rest", style: TextStyle(fontSize: 18)),
               ),
               // todo: get rest time from backend
-              Countdown(minutes: 5),
+              Countdown(minutes: 5, color: foreground),
               SizedBox(height: 20),
               Spacer(),
-              IconButton(onPressed: () {}, icon: Icon(Icons.downloading)),
+              ButtonMore(color: foreground),
             ],
           ),
         ),

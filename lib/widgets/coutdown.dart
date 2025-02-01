@@ -1,11 +1,13 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:pomodoro/interface/hexcolor.dart';
 
 class Countdown extends StatefulWidget {
-  const Countdown({super.key, required this.minutes});
+  const Countdown({super.key, required this.minutes, required this.color});
 
   final int minutes;
+  final String color;
 
   @override
   State<Countdown> createState() => _CountState();
@@ -13,7 +15,7 @@ class Countdown extends StatefulWidget {
 
 class _CountState extends State<Countdown> {
   late int minutes;
-  late int seconds = 30;
+  late int seconds = 0;
   Timer? timer;
   String prefix = "";
   // mode: start, running, paused, extra
@@ -85,7 +87,8 @@ class _CountState extends State<Countdown> {
         onPressed: () {
           _countdown();
         },
-        icon: Icon(Icons.play_circle),
+        icon: Icon(Icons.play_circle, color: HexColor.fromHex(widget.color)),
+        color: HexColor.fromHex(widget.color),
       );
     }
 
@@ -98,12 +101,14 @@ class _CountState extends State<Countdown> {
               _stopTimer();
             },
             icon: Icon(Icons.pause),
+            color: HexColor.fromHex(widget.color),
           ),
           IconButton(
             onPressed: () {
               _reset();
             },
             icon: Icon(Icons.close),
+            color: HexColor.fromHex(widget.color),
           ),
         ],
       );
@@ -117,13 +122,16 @@ class _CountState extends State<Countdown> {
             onPressed: () {
               _countdown();
             },
-            icon: Icon(Icons.play_circle),
+            icon: Icon(
+              Icons.play_circle,
+              color: HexColor.fromHex(widget.color),
+            ),
           ),
           IconButton(
             onPressed: () {
               _reset();
             },
-            icon: Icon(Icons.close),
+            icon: Icon(Icons.close, color: HexColor.fromHex(widget.color)),
           ),
         ],
       );
@@ -134,7 +142,7 @@ class _CountState extends State<Countdown> {
         _stopTimer();
         _save();
       },
-      icon: Icon(Icons.pause),
+      icon: Icon(Icons.pause, color: HexColor.fromHex(widget.color)),
     );
   }
 
@@ -150,7 +158,11 @@ class _CountState extends State<Countdown> {
       children: [
         Text(
           "$prefix${_twoDigits(minutes)}:${_twoDigits(seconds)}",
-          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 75),
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 75,
+            color: HexColor.fromHex(widget.color),
+          ),
         ),
         _buttons(),
       ],
