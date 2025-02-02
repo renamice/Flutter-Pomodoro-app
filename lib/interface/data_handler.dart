@@ -1,19 +1,34 @@
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:pomodoro/models/time_stamps.dart';
 
 const pomodoroBox = "pomodoro_box";
 const userSettings = "user_settings";
 const userSessions = "user_sessions";
 
 final _storageBox = Hive.box(pomodoroBox);
-final List userSettingsTable = _storageBox.get(userSettings) ?? [];
-final List userSessionsTable = _storageBox.get(userSessions) ?? [];
+List userSettingsTable = _storageBox.get(userSettings) ?? [];
+List userSessionsTable = _storageBox.get(userSessions) ?? [];
 
 void updateSettings(Map<String, dynamic> updated) {
-  _saveToDatabase(tableName: userSettings, data: [updated]);
+  userSettingsTable = [updated];
+  _saveToDatabase(tableName: userSettings, data: userSettingsTable);
 }
 
-void addSession(Map<String, dynamic> completedSession) {
-  userSessionsTable.add(completedSession);
+void addSession({required String logText, required int duration}) {
+  final now = DateTime.now();
+
+  Map<String, dynamic> newSession = {
+    "date": {
+      DateMeasures.year.toString(): now.year,
+      DateMeasures.month.toString(): now.month,
+      DateMeasures.day.toString(): now.day,
+      DateMeasures.hour.toString(): now.hour,
+      DateMeasures.minute.toString(): now.minute,
+    },
+    "mode": logText,
+    "duration": duration,
+  };
+  userSessionsTable.add(newSession);
   _saveToDatabase(tableName: userSessions, data: userSessionsTable);
 }
 
@@ -38,8 +53,8 @@ Map getUserSettings() {
   return userSettingsTable[0];
 }
 
-Map getUserSessions() {
-  return userSessionsTable[0];
+List getUserSessions() {
+  return userSessionsTable;
 }
 
 // Basic Functions

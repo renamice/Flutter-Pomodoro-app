@@ -1,5 +1,3 @@
-import 'package:pomodoro/interface/data_handler.dart';
-
 enum Settings {
   name,
   email,

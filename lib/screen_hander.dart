@@ -13,7 +13,6 @@ class _ScreenHandlerState extends State<ScreenHandler> {
   // routes
   String work = "/work";
   String rest = "/rest";
-  String settings = "/settings";
 
   String current = "/work";
 
@@ -23,23 +22,12 @@ class _ScreenHandlerState extends State<ScreenHandler> {
   void toRest() => setState(() {
     current = rest;
   });
-  void toSettings() => setState(() {
-    current = settings;
-  });
 
   @override
   Widget build(BuildContext context) {
-    if (current == work) {
-      return TimerScreen(toRest: toRest);
-    }
-
     if (current == rest) {
       return RestScreen(toWork: toWork);
     }
-
-    if (current == settings) {
-      // todo: settings
-    }
-    return Text("screen-handler");
+    return TimerScreen(toRest: toRest);
   }
 }

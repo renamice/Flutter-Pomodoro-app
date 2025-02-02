@@ -1,3 +1,5 @@
+enum DateMeasures { year, month, day, hour, minute }
+
 class TimeStamp {
   const TimeStamp({
     required this.date,
@@ -5,7 +7,7 @@ class TimeStamp {
     required this.duration,
   });
 
-  final DateTime date;
+  final Map<String, int> date;
   final String mode;
-  final double duration;
+  final int duration;
 }

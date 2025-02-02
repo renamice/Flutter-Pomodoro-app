@@ -25,6 +25,7 @@ class _TimerScreenState extends State<TimerScreen> {
 
   late var background = settings[Settings.work_background.toString()];
   late var foreground = settings[Settings.work_foreground.toString()];
+  late int workTime = settings[Settings.work_time.toString()];
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +45,18 @@ class _TimerScreenState extends State<TimerScreen> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(25),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Spacer(),
               // todo: get work time from backend
-              Countdown(minutes: 25, color: foreground),
+              Countdown(
+                minutes: workTime,
+                color: foreground,
+                logText: "work",
+                loadNext: widget.toRest,
+              ),
               Spacer(),
               ButtonMore(color: foreground),
             ],

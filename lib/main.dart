@@ -10,8 +10,8 @@ void main() async {
 
   if (userSettingsTable.isEmpty) {
     logUserSettings({
-      Settings.name.toString(): "",
-      Settings.email.toString(): "",
+      Settings.name.toString(): "user",
+      Settings.email.toString(): "user@email.com",
       Settings.work_foreground.toString(): "#000000",
       Settings.work_background.toString(): "#ffffff",
       Settings.rest_foreground.toString(): "#000000",

@@ -1,13 +1,21 @@
 import 'dart:async';
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:pomodoro/interface/data_handler.dart';
 import 'package:pomodoro/interface/hexcolor.dart';
 
 class Countdown extends StatefulWidget {
-  const Countdown({super.key, required this.minutes, required this.color});
+  const Countdown({
+    super.key,
+    required this.minutes,
+    required this.color,
+    required this.logText,
+    required this.loadNext,
+  });
 
   final int minutes;
   final String color;
+  final String logText;
+  final void Function() loadNext;
 
   @override
   State<Countdown> createState() => _CountState();
@@ -16,6 +24,8 @@ class Countdown extends StatefulWidget {
 class _CountState extends State<Countdown> {
   late int minutes;
   late int seconds = 0;
+  int extraMinutes = 0;
+  int extraSeconds = 0;
   Timer? timer;
   String prefix = "";
   // mode: start, running, paused, extra
@@ -65,9 +75,6 @@ class _CountState extends State<Countdown> {
   }
 
   void _stopTimer() {
-    setState(() {
-      mode = "paused";
-    });
     timer?.cancel();
   }
 
@@ -98,6 +105,9 @@ class _CountState extends State<Countdown> {
         children: [
           IconButton(
             onPressed: () {
+              setState(() {
+                mode = "paused";
+              });
               _stopTimer();
             },
             icon: Icon(Icons.pause),
@@ -105,6 +115,7 @@ class _CountState extends State<Countdown> {
           ),
           IconButton(
             onPressed: () {
+              _save();
               _reset();
             },
             icon: Icon(Icons.close),
@@ -129,6 +140,7 @@ class _CountState extends State<Countdown> {
           ),
           IconButton(
             onPressed: () {
+              _save();
               _reset();
             },
             icon: Icon(Icons.close, color: HexColor.fromHex(widget.color)),
@@ -137,16 +149,26 @@ class _CountState extends State<Countdown> {
       );
     }
 
+    // if extra time
     return IconButton(
       onPressed: () {
         _stopTimer();
         _save();
+        widget.loadNext();
       },
       icon: Icon(Icons.pause, color: HexColor.fromHex(widget.color)),
     );
   }
 
-  void _save() {}
+  void _save() {
+    int total = 0;
+    if (mode == "extra") {
+      total = widget.minutes + minutes;
+    } else {
+      total = widget.minutes - minutes;
+    }
+    addSession(logText: widget.logText, duration: total);
+  }
 
   // Int -> String
   // Adds a '0' to the front if number is only one digit
