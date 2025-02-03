@@ -19,12 +19,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _formKey.currentState!.save();
       updateSettings(newData);
       Navigator.of(context).pop();
-      print(newData);
     }
   }
 
   bool _validateHexCode(String value) {
-    if (value!.isEmpty) {
+    if (value.isEmpty) {
       return false;
     }
     if ((value[0] == "#" && value.length != 7) ||

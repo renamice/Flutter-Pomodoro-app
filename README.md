@@ -1,16 +1,12 @@
 # pomodoro
-
-A new Flutter project.
+A very bare bones pomodoro app which you can use to keep track of how much work you do.
 
 ## Getting Started
+You can just compile the codebase and run it onto your own device if you like.
+I wanted to try creating this to learn flutter,
+and this is also my first actual app outside of tutorials.
 
-This project is a starting point for a Flutter application.
+Since this is my first app in flutter I have no idea if the code is structured properly or not.
+I also know not about the "correct" way of doing things in the flutter way.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+You can comb through the code if you like, though.
