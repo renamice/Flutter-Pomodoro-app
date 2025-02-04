@@ -43,7 +43,7 @@ class _CountState extends State<Countdown> {
       mode = "extra";
     });
 
-    timer = Timer.periodic(Duration(seconds: 50), (_) {
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
       if (seconds == 60) {
         setState(() {
           seconds = 0;
@@ -58,7 +58,7 @@ class _CountState extends State<Countdown> {
 
   void _countdown() {
     mode = "running";
-    timer = Timer.periodic(Duration(seconds: 50), (_) {
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
       if (seconds == 0) {
         minutes--;
         seconds = 60;
